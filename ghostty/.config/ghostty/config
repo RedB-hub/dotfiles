@@ -1,0 +1,9 @@
+# Font: JetBrains Mono is built in, including Nerd Font icons
+font-size = 14
+
+# Space between the text and the window edges
+window-padding-x = 8
+window-padding-y = 8 
+
+# Considered : Chalk | Ghostty Default Style Dark | Miasma | Ryuuko | TokyoNight | Arthur
+theme = TokyoNight
