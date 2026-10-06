@@ -3,7 +3,10 @@ font-size = 14
 
 # Space between the text and the window edges
 window-padding-x = 8
-window-padding-y = 8 
+# 8 pixels of margin at the top, none at the bottom
+window-padding-y = 8,0
+# Split any leftover space between top and bottom instead of putting it all at the bottom
+window-padding-balance = true
 
 # Considered : Chalk | Ghostty Default Style Dark | Miasma | Ryuuko | TokyoNight | Arthur | Kanagawa Wave
 theme = Kanagawa Wave 
