@@ -25,6 +25,24 @@ autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd 'v' edit-command-line
 
+# --- Prompt ---
+eval "$(starship init zsh)"
+
+# --- Plugins ---
+# Load a plugin from wherever this system's package manager put it:
+# MacPorts (/opt/local/share), Arch/Omarchy (/usr/share/zsh/plugins), Homebrew (/opt/homebrew/share)
+load_plugin() {
+  local name=$1 dir
+  for dir in /opt/local/share /usr/share/zsh/plugins /opt/homebrew/share; do
+    if [[ -f $dir/$name/$name.zsh ]]; then
+      source $dir/$name/$name.zsh
+      return
+    fi
+  done
+}
+load_plugin zsh-autosuggestions
+load_plugin zsh-syntax-highlighting   # must be the last plugin loaded
+
 # --- Start tmux automatically in Ghostty ---
 if [[ -z "$TMUX" && "$TERM_PROGRAM" == "ghostty" ]] && command -v tmux >/dev/null; then
   exec tmux new-session -A -s main
