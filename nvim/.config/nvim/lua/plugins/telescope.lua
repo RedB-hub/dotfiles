@@ -4,18 +4,17 @@ vim.pack.add({
 })
 
 require("telescope").setup({
-  pickers = {
-    -- Include hidden files, but not the .git folder
-    find_files = {
-      find_command = { "fd", "--type", "f", "--hidden", "--exclude", ".git" },
+    pickers = {
+	-- Include hidden files, but not the .git folder
+	find_files = {
+	    find_command = { "fd", "--type", "f", "--hidden", "--exclude", ".git", "--exclude", "Library", "--exclude", ".Trash" },
+	},
+	live_grep = {
+	    additional_args = function()
+		return { "--hidden", "--glob", "!.git", "--glob", "!Library", "--glob", "!.Trash" }
+	    end,
+	},
     },
-    -- Same for searching text inside files
-    live_grep = {
-      additional_args = function()
-        return { "--hidden", "--glob", "!.git" }
-      end,
-    },
-  },
 })
 
 local builtin = require("telescope.builtin")
