@@ -1,9 +1,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[](color_orange)\
-$os\
-[](bg:color_yellow fg:color_orange)\
+[](color_yellow)\
 $directory\
 [](fg:color_yellow bg:color_aqua)\
 $git_branch\
