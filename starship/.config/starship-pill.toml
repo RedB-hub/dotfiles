@@ -1,0 +1,62 @@
+"$schema" = "https://starship.rs/config-schema.json"
+add_newline = false
+
+# Left side: folder, git host icon, branch, git status, then the arrow
+format = """
+$directory\
+${custom.github}\
+${custom.git}\
+$git_branch\
+$git_status\
+$character"""
+
+# Right side: everything else Starship detects (language versions, etc.)
+right_format = "$all"
+
+[line_break]
+disabled = true
+
+[directory]
+style = "cyan"
+format = "[ $path ]($style)"
+truncation_length = 4
+
+[character]
+success_symbol = "[❯](bold green) "
+error_symbol = "[✘](bold red) "
+vimcmd_symbol = "[❮](bold yellow) "
+
+# GitHub icon if the repo is on GitHub...
+[custom.github]
+when = "git ls-remote --get-url 2>/dev/null | grep -q github"
+require_repo = true
+symbol = "\uf09b "
+style = "white"
+format = "[$symbol]($style)"
+
+# ...otherwise a generic git icon
+[custom.git]
+when = "! git ls-remote --get-url 2>/dev/null | grep -q github"
+require_repo = true
+symbol = "\uf1d3 "
+style = "white"
+format = "[$symbol]($style)"
+
+# Branch inside a purple pill
+[git_branch]
+symbol = "\uf418 "
+format = "[\ue0b6](purple)[$symbol$branch](bg:purple fg:black bold)[\ue0b4](purple) "
+
+# + staged, ! modified, ? untracked, - deleted, ≡ stashed, ⇡⇣ ahead/behind
+[git_status]
+format = "[$untracked$staged$modified$renamed$deleted$conflicted$stashed$ahead_behind]($style) "
+staged = "[+](green)"
+modified = "[!](yellow)"
+renamed = "[»](blue)"
+deleted = "[-](red)"
+untracked = "[?](red)"
+stashed = "[≡](purple)"
+conflicted = "[✖](bold red)"
+ahead = "[⇡${count}](cyan)"
+behind = "[⇣${count}](yellow)"
+diverged = "[⇕⇡${ahead_count}⇣${behind_count}](purple)"

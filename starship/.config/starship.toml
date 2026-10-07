@@ -1,62 +1,197 @@
-"$schema" = "https://starship.rs/config-schema.json"
-add_newline = false
+"$schema" = 'https://starship.rs/config-schema.json'
 
-# Left side: folder, git host icon, branch, git status, then the arrow
 format = """
+[](color_orange)\
+$os\
+[](bg:color_yellow fg:color_orange)\
 $directory\
-${custom.github}\
-${custom.git}\
+[](fg:color_yellow bg:color_aqua)\
 $git_branch\
 $git_status\
+[](fg:color_aqua bg:color_blue)\
+$c\
+$cpp\
+$rust\
+$golang\
+$nodejs\
+$bun\
+$php\
+$java\
+$kotlin\
+$haskell\
+$python\
+[](fg:color_blue bg:color_bg3)\
+$docker_context\
+$conda\
+$pixi\
+[ ](fg:color_bg3)\
 $character"""
 
-# Right side: everything else Starship detects (language versions, etc.)
-right_format = "$all"
+palette = 'kanagawa' 
 
-[line_break]
-disabled = true
+[palettes.gruvbox_dark]
+color_fg0 = '#fbf1c7'
+color_bg1 = '#3c3836'
+color_bg3 = '#665c54'
+color_blue = '#458588'
+color_aqua = '#689d6a'
+color_green = '#98971a'
+color_orange = '#d65d0e'
+color_purple = '#b16286'
+color_red = '#cc241d'
+color_yellow = '#d79921'
+
+[os]
+disabled = false
+style = "bg:color_orange fg:color_fg0"
+
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+AOSC = ""
+Arch = "󰣇"
+Artix = "󰣇"
+EndeavourOS = ""
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+Pop = ""
+
+[username]
+show_always = true
+style_user = "bg:color_orange fg:color_fg0"
+style_root = "bg:color_orange fg:color_fg0"
+format = '[ $user ]($style)'
 
 [directory]
-style = "cyan"
+style = "fg:color_fg0 bg:color_yellow"
 format = "[ $path ]($style)"
-truncation_length = 4
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+
+[git_branch]
+symbol = ""
+style = "bg:color_aqua"
+format = '[[ $symbol $branch ](fg:color_fg0 bg:color_aqua)]($style)'
+
+[git_status]
+style = "bg:color_aqua"
+format = '[[($all_status$ahead_behind )](fg:color_fg0 bg:color_aqua)]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:color_blue"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+
+[bun]
+symbol = ""
+style = "bg:color_blue"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+
+[c]
+symbol = " "
+style = "bg:color_blue"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+
+[cpp]
+symbol = " "
+style = "bg:color_blue"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+
+[rust]
+symbol = ""
+style = "bg:color_blue"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+
+[golang]
+symbol = ""
+style = "bg:color_blue"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+
+[php]
+symbol = ""
+style = "bg:color_blue"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+
+[java]
+symbol = ""
+style = "bg:color_blue"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+
+[kotlin]
+symbol = ""
+style = "bg:color_blue"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+
+[haskell]
+symbol = ""
+style = "bg:color_blue"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+
+[python]
+symbol = ""
+style = "bg:color_blue"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+
+[docker_context]
+symbol = ""
+style = "bg:color_bg3"
+format = '[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)'
+
+[conda]
+style = "bg:color_bg3"
+format = '[[ $symbol( $environment) ](fg:#83a598 bg:color_bg3)]($style)'
+
+[pixi]
+style = "bg:color_bg3"
+format = '[[ $symbol( $version)( $environment) ](fg:color_fg0 bg:color_bg3)]($style)'
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:color_bg1"
+format = '[[  $time ](fg:color_fg0 bg:color_bg1)]($style)'
+
+[line_break]
+disabled = false
 
 [character]
-success_symbol = "[❯](bold green) "
-error_symbol = "[✘](bold red) "
-vimcmd_symbol = "[❮](bold yellow) "
+disabled = false
+success_symbol = '[](bold fg:color_green)'
+error_symbol = '[](bold fg:color_red)'
+vimcmd_symbol = '[](bold fg:color_purple)'
+vimcmd_replace_one_symbol = '[](bold fg:color_purple)'
+vimcmd_replace_symbol = '[](bold fg:color_purple)'
+vimcmd_visual_symbol = '[](bold fg:color_yellow)'
 
-# GitHub icon if the repo is on GitHub...
-[custom.github]
-when = "git ls-remote --get-url 2>/dev/null | grep -q github"
-require_repo = true
-symbol = "\uf09b "
-style = "white"
-format = "[$symbol]($style)"
-
-# ...otherwise a generic git icon
-[custom.git]
-when = "! git ls-remote --get-url 2>/dev/null | grep -q github"
-require_repo = true
-symbol = "\uf1d3 "
-style = "white"
-format = "[$symbol]($style)"
-
-# Branch inside a purple pill
-[git_branch]
-symbol = "\uf418 "
-format = "[\ue0b6](purple)[$symbol$branch](bg:purple fg:black bold)[\ue0b4](purple) "
-
-# + staged, ! modified, ? untracked, - deleted, ≡ stashed, ⇡⇣ ahead/behind
-[git_status]
-format = "[$untracked$staged$modified$renamed$deleted$conflicted$stashed$ahead_behind]($style) "
-staged = "[+](green)"
-modified = "[!](yellow)"
-renamed = "[»](blue)"
-deleted = "[-](red)"
-untracked = "[?](red)"
-stashed = "[≡](purple)"
-conflicted = "[✖](bold red)"
-ahead = "[⇡${count}](cyan)"
-behind = "[⇣${count}](yellow)"
-diverged = "[⇕⇡${ahead_count}⇣${behind_count}](purple)"
+# Kanagawa Wave colors, with the names the preset expects
+[palettes.kanagawa]
+color_fg0 = '#1f1f28'    # dark text (Kanagawa's background) on light segments
+color_orange = '#ffa066'
+color_yellow = '#e6c384'
+color_aqua = '#7aa89f'
+color_blue = '#7e9cd8'
+color_bg3 = '#938aa9'    # violet
+color_bg1 = '#c8c093'    # cream
+color_green = '#98bb6c'
+color_purple = '#957fb8'
+color_red = '#e46876'
