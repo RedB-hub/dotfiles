@@ -6,6 +6,7 @@ setopt SHARE_HISTORY HIST_IGNORE_DUPS
 
 # Use ~/.config for app configs, like on Linux
 export XDG_CONFIG_HOME="$HOME/.config"
+export PATH="$HOME/.local/bin:$PATH"
 
 # --- Completion: Tab opens a menu you can move through ---
 autoload -Uz compinit && compinit
@@ -35,6 +36,9 @@ eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
 # --- fzf: Ctrl+R fuzzy history search, Ctrl+T insert a file path ---
+# fzf: list files with fd, skipping .git and macOS's protected folders
+export FZF_DEFAULT_COMMAND="fd --hidden --exclude .git --exclude Library --exclude .Trash"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 source <(fzf --zsh)
 
 # --- Plugins ---
@@ -56,3 +60,12 @@ load_plugin zsh-syntax-highlighting   # must be the last plugin loaded
 if [[ -z "$TMUX" && "$TERM_PROGRAM" == "ghostty" ]] && command -v tmux >/dev/null; then
   exec tmux new-session -A -s main
 fi
+
+# y: open Yazi; when you quit, the shell moves to the folder you were in
+function y() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  command yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd < "$tmp"
+  [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+  rm -f -- "$tmp"
+}

@@ -1,0 +1,17 @@
+# Programs that can open files. %s = all selected files
+[opener]
+vlc = [
+  { run = 'open -a VLC %s', desc = "VLC", for = "macos" },
+  { run = 'vlc %s', orphan = true, desc = "VLC", for = "linux" },
+]
+quicklook = [
+  { run = 'qlmanage -p %s', orphan = true, desc = "Quick Look", for = "macos" },
+]
+
+# Which opener to use for which files (checked before Yazi's defaults)
+[open]
+prepend_rules = [
+  { mime = "video/*", use = ["vlc", "open"] },
+  { mime = "audio/*", use = ["vlc", "open"] },
+  { url = "*.{cr2,cr3,nef,arw,raf,dng,orf,rw2}", use = ["quicklook", "open"] },
+]

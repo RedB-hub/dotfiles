@@ -1,0 +1,7 @@
+[mgr]
+prepend_keymap = [
+  { on = ["g", "d"], run = "cd ~/Downloads", desc = "Downloads" },
+  { on = ["g", "b"], run = "cd ~/Akahige", desc = "Base Folder" },
+  { on = ["g", "."], run = "cd ~/dotfiles", desc = "Dotfiles" },
+  { on = ["g", "m"], run = "cd ~/Akahige/Watch List", desc = "Watch List" },
+]
