@@ -4,6 +4,9 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt SHARE_HISTORY HIST_IGNORE_DUPS
 
+# Use ~/.config for app configs, like on Linux
+export XDG_CONFIG_HOME="$HOME/.config"
+
 # --- Completion: Tab opens a menu you can move through ---
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
@@ -27,6 +30,12 @@ bindkey -M vicmd 'v' edit-command-line
 
 # --- Prompt ---
 eval "$(starship init zsh)"
+
+# --- zoxide: z <part of a folder name> jumps to it ---
+eval "$(zoxide init zsh)"
+
+# --- fzf: Ctrl+R fuzzy history search, Ctrl+T insert a file path ---
+source <(fzf --zsh)
 
 # --- Plugins ---
 # Load a plugin from wherever this system's package manager put it:
