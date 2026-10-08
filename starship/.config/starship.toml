@@ -85,6 +85,7 @@ truncation_symbol = "…/"
 "Music" = "󰝚 "
 "Pictures" = " "
 "Developer" = "󰲋 "
+"Akahige" = "\U000F03D2"
 
 [git_branch]
 symbol = ""

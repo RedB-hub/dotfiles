@@ -1,0 +1,94 @@
+config-version = 2
+
+start-at-login = false
+auto-reload-config = true
+
+on-window-detected = [
+    # Floating utilities (stay on the workspace they open on)
+    {
+        if = 'test %{app-bundle-id} = com.apple.finder || test %{app-bundle-id} = com.apple.systempreferences || test %{app-bundle-id} = com.nordvpn.macos || test %{app-bundle-id} = com.synology.CloudStationUI',
+        run = 'layout floating',
+    },
+    # 1: Terminal
+    {
+        if = 'test %{app-bundle-id} = com.mitchellh.ghostty',
+        run = 'move-node-to-workspace 1',
+    },
+    # 2: Notes
+    {
+        if = 'test %{app-bundle-id} = md.obsidian',
+        run = 'move-node-to-workspace 2',
+    },
+    # 3: Browser
+    {
+        if = 'test %{app-bundle-id} = app.zen-browser.zen',
+        run = 'move-node-to-workspace 3',
+    },
+    # 4: Watch
+    {
+        if = 'test %{app-bundle-id} = com.apple.Safari || test %{app-bundle-id} = org.videolan.vlc',
+        run = 'move-node-to-workspace 4',
+    },
+    # 5: Creation
+    {
+        if = 'test %{app-bundle-id} ~= com.ononesoftware || test %{app-bundle-id} = com.apple.Preview || test %{app-bundle-id} = org.libreoffice.script || test %{app-bundle-id} = com.apple.logic10',
+        run = 'move-node-to-workspace 5',
+    },
+]
+
+[mode.main.binding]
+    # Hyper + number: go to workspace
+    cmd-alt-ctrl-shift-1 = 'workspace 1'
+    cmd-alt-ctrl-shift-2 = 'workspace 2'
+    cmd-alt-ctrl-shift-3 = 'workspace 3'
+    cmd-alt-ctrl-shift-4 = 'workspace 4'
+    cmd-alt-ctrl-shift-5 = 'workspace 5'
+    cmd-alt-ctrl-shift-6 = 'workspace 6'
+    cmd-alt-ctrl-shift-7 = 'workspace 7'
+    cmd-alt-ctrl-shift-8 = 'workspace 8'
+    cmd-alt-ctrl-shift-9 = 'workspace 9'
+
+    # Hyper + Enter: open Ghostty, or bring it forward if already running
+    cmd-alt-ctrl-shift-enter = 'exec-and-forget open -a Ghostty'
+
+    # Hyper + Z: zoom the focused window (like tmux prefix z)
+    # ('w' = the AZERTY Z key)
+    cmd-alt-ctrl-shift-w = 'fullscreen'
+
+    # Hyper + h/j/k/l: focus the window left/down/up/right (like tmux prefix h/j/k/l)
+    cmd-alt-ctrl-shift-h = 'focus left'
+    cmd-alt-ctrl-shift-j = 'focus down'
+    cmd-alt-ctrl-shift-k = 'focus up'
+    cmd-alt-ctrl-shift-l = 'focus right'
+
+    # Hyper + M: enter window mode
+    # ('semicolon' = the AZERTY M key, AeroSpace names keys by QWERTY position)
+    cmd-alt-ctrl-shift-semicolon = 'mode window'
+
+[mode.window.binding]
+    # Number: send the window to that workspace, follow it, exit the mode
+    1 = ['move-node-to-workspace --focus-follows-window 1', 'mode main']
+    2 = ['move-node-to-workspace --focus-follows-window 2', 'mode main']
+    3 = ['move-node-to-workspace --focus-follows-window 3', 'mode main']
+    4 = ['move-node-to-workspace --focus-follows-window 4', 'mode main']
+    5 = ['move-node-to-workspace --focus-follows-window 5', 'mode main']
+    6 = ['move-node-to-workspace --focus-follows-window 6', 'mode main']
+    7 = ['move-node-to-workspace --focus-follows-window 7', 'mode main']
+    8 = ['move-node-to-workspace --focus-follows-window 8', 'mode main']
+    9 = ['move-node-to-workspace --focus-follows-window 9', 'mode main']
+
+    # h/j/k/l: move the window within the workspace (stays in the mode)
+    h = 'move left'
+    j = 'move down'
+    k = 'move up'
+    l = 'move right'
+
+    # Shift + h/j/k/l: resize (stays in the mode, like tmux prefix H/J/K/L)
+    shift-h = 'resize width -50'
+    shift-l = 'resize width +50'
+    shift-k = 'resize height -50'
+    shift-j = 'resize height +50'
+
+    # Esc or Enter: back to normal
+    esc = 'mode main'
+    enter = 'mode main'
