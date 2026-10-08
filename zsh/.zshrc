@@ -8,6 +8,9 @@ setopt SHARE_HISTORY HIST_IGNORE_DUPS
 export XDG_CONFIG_HOME="$HOME/.config"
 export PATH="$HOME/.local/bin:$PATH"
 
+# User-installed completions (e.g. AeroSpace)
+fpath=(~/.local/share/zsh/site-functions $fpath)
+
 # --- Completion: Tab opens a menu you can move through ---
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
