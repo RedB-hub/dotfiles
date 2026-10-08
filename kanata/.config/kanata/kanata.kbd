@@ -1,0 +1,48 @@
+;; Kanata: MacBook built-in keyboard only
+;; Key names are QWERTY *positions*: on AZERTY, `a` = the Q key, `;` = the M key.
+
+(defcfg
+  process-unmapped-keys yes
+  macos-dev-names-include ("Apple Internal Keyboard / Trackpad")
+)
+
+;; The physical keys we change. Every other key passes through untouched.
+(defsrc
+  caps
+  a    s    d    f    j    k    l    ;
+  rmet
+)
+
+;; Timings (ms), in one place so they're easy to tune
+(defvar
+  tt   200   ;; how long to hold before a home-row key becomes a modifier
+  idle 150   ;; typed something this recently? then it's a letter, not a modifier
+)
+
+;; Which hand each key belongs to (QWERTY position names)
+(defhands
+  (left  q w e r t a s d f g z x c v b)
+  (right y u i o p h j k l ; n m , . /)
+)
+
+(defalias
+  ;; Left hand: Q S D F
+  qctl (tap-hold-opposite-hand $tt a lctl (same-hand ignore) (timeout hold) (neutral-keys spc) (neutral tap) (require-prior-idle $idle))
+  sopt (tap-hold-opposite-hand $tt s lalt (same-hand ignore) (timeout hold) (neutral-keys spc) (neutral tap) (require-prior-idle $idle))
+  dcmd (tap-hold-opposite-hand $tt d lmet (same-hand ignore) (timeout hold) (neutral-keys spc) (neutral tap) (require-prior-idle $idle))
+  fsft (tap-hold-opposite-hand $tt f lsft (same-hand ignore) (timeout hold) (neutral-keys spc) (neutral tap) (require-prior-idle $idle))
+  ;; Right hand: J K L M
+  jsft (tap-hold-opposite-hand $tt j rsft (same-hand ignore) (timeout hold) (neutral-keys spc) (neutral tap) (require-prior-idle $idle))
+  kcmd (tap-hold-opposite-hand $tt k rmet (same-hand ignore) (timeout hold) (neutral-keys spc) (neutral tap) (require-prior-idle $idle))
+  lopt (tap-hold-opposite-hand $tt l ralt (same-hand ignore) (timeout hold) (neutral-keys spc) (neutral tap) (require-prior-idle $idle))
+  mctl (tap-hold-opposite-hand $tt ; rctl (same-hand ignore) (timeout hold) (neutral-keys spc) (neutral tap) (require-prior-idle $idle))
+
+  ;; Right Cmd held = Hyper (Ctrl+Option+Shift+Cmd) for AeroSpace
+  hyp (multi lctl lalt lsft lmet)
+)
+
+(deflayer base
+  esc
+  @qctl @sopt @dcmd @fsft @jsft @kcmd @lopt @mctl
+  @hyp
+)
