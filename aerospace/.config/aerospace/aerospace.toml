@@ -60,7 +60,7 @@ on-window-detected = [
 
     # Hyper + Z: zoom the focused window (like tmux prefix z)
     # ('w' = the AZERTY Z key)
-    cmd-alt-ctrl-shift-w = 'fullscreen'
+    cmd-alt-ctrl-shift-z = 'fullscreen'
 
     # Hyper + h/j/k/l: focus the window left/down/up/right (like tmux prefix h/j/k/l)
     cmd-alt-ctrl-shift-h = 'focus left'
@@ -70,7 +70,7 @@ on-window-detected = [
 
     # Hyper + M: enter window mode
     # ('semicolon' = the AZERTY M key, AeroSpace names keys by QWERTY position)
-    cmd-alt-ctrl-shift-semicolon = 'mode window'
+    cmd-alt-ctrl-shift-m= 'mode window'
 
 [mode.window.binding]
     # Number: send the window to that workspace, follow it, exit the mode
