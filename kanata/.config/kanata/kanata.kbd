@@ -1,16 +1,18 @@
-;; Kanata: MacBook built-in keyboard only
-;; Key names are QWERTY *positions*: on AZERTY, `a` = the Q key, `;` = the M key.
+;; Kanata: MacBook built-in keyboard + Keychron K3 Max
+;; Key names are QWERTY *positions* (and what Lafayette types, since it's QWERTY-based).
 
 (defcfg
   process-unmapped-keys yes
   macos-dev-names-include ("Apple Internal Keyboard / Trackpad" "0x7A02521BF12E02AC")
 )
 
-;; The physical keys we change. Every other key passes through untouched.
+;; The physical keys we change, laid out roughly like the keyboard.
+;; Every other key passes through untouched.
 (defsrc
-  caps
-  a    s    d    f    j    k    l    ;
-  rmet
+       e              u    i    o
+  caps a    s    d    f    j    k    l    ;
+                           m    ,    .
+  lalt spc  rmet ralt
 )
 
 ;; Timings (ms), in one place so they're easy to tune
@@ -26,23 +28,37 @@
 )
 
 (defalias
-  ;; Left hand: Q S D F
+  ;; Home row mods (CAGS): Q S D F / J K L M on AZERTY keycaps
   qctl (tap-hold-opposite-hand $tt a lctl (same-hand ignore) (timeout hold) (neutral-keys spc) (neutral tap) (require-prior-idle $idle))
   sopt (tap-hold-opposite-hand $tt s lalt (same-hand ignore) (timeout hold) (neutral-keys spc) (neutral tap) (require-prior-idle $idle))
   dcmd (tap-hold-opposite-hand $tt d lmet (same-hand ignore) (timeout hold) (neutral-keys spc) (neutral tap) (require-prior-idle $idle))
   fsft (tap-hold-opposite-hand $tt f lsft (same-hand ignore) (timeout hold) (neutral-keys spc) (neutral tap) (require-prior-idle $idle))
-  ;; Right hand: J K L M
   jsft (tap-hold-opposite-hand $tt j rsft (same-hand ignore) (timeout hold) (neutral-keys spc) (neutral tap) (require-prior-idle $idle))
   kcmd (tap-hold-opposite-hand $tt k rmet (same-hand ignore) (timeout hold) (neutral-keys spc) (neutral tap) (require-prior-idle $idle))
   lopt (tap-hold-opposite-hand $tt l ralt (same-hand ignore) (timeout hold) (neutral-keys spc) (neutral tap) (require-prior-idle $idle))
   mctl (tap-hold-opposite-hand $tt ; rctl (same-hand ignore) (timeout hold) (neutral-keys spc) (neutral tap) (require-prior-idle $idle))
 
-  ;; Right Cmd held = Hyper (Ctrl+Option+Shift+Cmd) for AeroSpace
+  ;; Hyper (Ctrl+Option+Shift+Cmd) for AeroSpace
   hyp (multi lctl lalt lsft lmet)
+
+  ;; Numpad + arrows layer, active while held
+  num (layer-while-held num)
 )
 
 (deflayer base
-  esc
-  @qctl @sopt @dcmd @fsft @jsft @kcmd @lopt @mctl
-  @hyp
+       e              u    i    o
+  esc  @qctl @sopt @dcmd @fsft @jsft @kcmd @lopt @mctl
+                           m    ,    .
+  lalt spc  ralt @hyp
+  ;; ^ Left Option. Replace `lalt` with `@num` to enable the numpad layer.
+  ;;   Right Cmd = AltGr (sends Right Option), Right Option = Hyper.
+)
+
+;; Held layer: arrows on ESDF (left hand), numpad on the right hand, 0 on the space bar.
+;; `_` = transparent: the key keeps its normal behaviour.
+(deflayer num
+       up             7    8    9
+  _    _    left down rght 4    5    6    _
+                           1    2    3
+  _    0    _    _
 )
