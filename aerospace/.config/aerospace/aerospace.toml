@@ -99,3 +99,7 @@ on-window-detected = [
     # Esc or Enter: back to normal
     esc = 'mode main'
     enter = 'mode main'
+
+    # t: toggle tiles <-> accordion, v: toggle horizontal <-> vertical
+    t = ['layout tiles accordion', 'mode main']
+    v = ['layout horizontal vertical', 'mode main']

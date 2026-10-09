@@ -72,3 +72,16 @@ function y() {
   [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
   rm -f -- "$tmp"
 }
+
+# Synology shares on demand:
+#   nas              mount Backups
+#   nas Sync-Cle     mount Sync-Cle
+#   nas -u           unmount Backups
+#   nas -u Sync-Cle  unmount Sync-Cle
+nas() {
+    if [[ "$1" == "-u" ]]; then
+        diskutil unmount "/Volumes/${2:-Backups}" && diskutil unmount "/Volumes/${2:-Sync-Cle}"
+    else
+	open "smb://DS423.local/${1:-Backups}" && open "smb://DS423.local/${1:-Sync-Cle}"
+    fi
+}
