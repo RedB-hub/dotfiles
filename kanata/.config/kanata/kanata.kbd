@@ -3,7 +3,7 @@
 
 (defcfg
   process-unmapped-keys yes
-  macos-dev-names-include ("Apple Internal Keyboard / Trackpad")
+  macos-dev-names-include ("Apple Internal Keyboard / Trackpad" "0x7A02521BF12E02AC")
 )
 
 ;; The physical keys we change. Every other key passes through untouched.
