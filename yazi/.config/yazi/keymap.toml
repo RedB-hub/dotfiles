@@ -1,7 +1,7 @@
 [mgr]
 prepend_keymap = [
   { on = ["g", "d"], run = "cd ~/Downloads", desc = "Downloads" },
-  { on = ["g", "b"], run = "cd ~/Akahige", desc = "Base Folder" },
+  { on = ["g", "a"], run = "cd ~/Akahige", desc = "Base Folder" },
   { on = ["g", "."], run = "cd ~/dotfiles", desc = "Dotfiles" },
   { on = ["g", "w"], run = "cd ~/Akahige/Watch List", desc = "Watch List" },
   { on = ["g", "o"], run = "cd ~/Akahige/RedDoc/Obsidian/AkaKinko", desc = "Obisidian Vault" },

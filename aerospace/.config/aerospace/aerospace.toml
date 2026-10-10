@@ -38,8 +38,13 @@ on-window-detected = [
     },
     # 5: Creation
     {
-        if = 'test %{app-bundle-id} ~= com.ononesoftware || test %{app-bundle-id} = com.apple.Preview || test %{app-bundle-id} = org.libreoffice.script || test %{app-bundle-id} = com.apple.logic10',
+        if = 'test %{app-bundle-id} ~= com.ononesoftware || test %{app-bundle-id} = com.apple.Preview || test %{app-bundle-id} = org.libreoffice.script || test %{app-bundle-id} = com.apple.logic10 || test %{app-bundle-id} = com.electron.foundryvtt',
         run = 'move-node-to-workspace 5',
+    },
+    # 6: Spotify
+    {
+        if = 'test %{app-bundle-id} = com.spotify.client',
+        run = 'move-node-to-workspace 6',
     },
 ]
 
