@@ -44,7 +44,7 @@ on-window-detected = [
     # 6: Spotify
     {
         if = 'test %{app-bundle-id} = com.spotify.client',
-        run = 'move-node-to-workspace 6',
+        run = 'move-node-to-workspace 0',
     },
 ]
 
