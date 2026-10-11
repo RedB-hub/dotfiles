@@ -1,0 +1,15 @@
+#!/bin/bash
+# Pass picker: pick an entry with fzf, copy its password (cleared after 45 s)
+
+# This doesn't load .zshrc, so set what pass needs ourselves
+export PATH="/opt/local/bin:$HOME/.local/bin:$PATH"
+export GPG_TTY="$(tty)"
+
+# Keep pass's clipboard-clearing timer alive when the popup closes
+trap '' HUP
+
+store="${PASSWORD_STORE_DIR:-$HOME/.password-store}"
+entry=$(cd "$store" && fd --type f --extension gpg . | sed 's/\.gpg$//' | fzf --prompt="pass> ") || exit 0
+
+pass -c "$entry"
+sleep 1

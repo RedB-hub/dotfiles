@@ -1,0 +1,16 @@
+#!/bin/bash
+# Open the pass picker in a tmux popup, then return to where I was
+
+export PATH="/opt/local/bin:$HOME/.local/bin:$PATH"
+
+# Find the terminal (tmux "client") currently attached
+client=$(tmux list-clients -F '#{client_name}' | head -n 1)
+[ -n "$client" ] || exit 0
+
+# Remember the current workspace, then show the terminal
+prev=$(aerospace list-workspaces --focused)
+aerospace workspace 1
+
+# Run the picker, then go back to the remembered workspace
+tmux display-popup -c "$client" -E -w 70 -h 18 \
+    "$HOME/.local/bin/pass-pick; $HOME/.local/bin/aerospace workspace $prev"

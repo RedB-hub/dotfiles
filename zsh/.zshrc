@@ -8,6 +8,9 @@ setopt SHARE_HISTORY HIST_IGNORE_DUPS
 export XDG_CONFIG_HOME="$HOME/.config"
 export PATH="$HOME/.local/bin:$PATH"
 
+# Let GPG ask for passphrases in the current terminal
+export GPG_TTY=$(tty)
+
 # User-installed completions (e.g. AeroSpace)
 fpath=(~/.local/share/zsh/site-functions $fpath)
 
@@ -84,4 +87,12 @@ nas() {
     else
 	open "smb://DS423.local/${1:-Backups}" && open "smb://DS423.local/${1:-Sync-Cle}"
     fi
+}
+
+# Pick a pass entry with fzf and copy its password (cleared after 45 s)
+pp() {
+    local store="${PASSWORD_STORE_DIR:-$HOME/.password-store}"
+    local entry
+    entry=$(cd "$store" && fd --type f --extension gpg . | sed 's/\.gpg$//' | fzf --prompt="pass> ") || return
+    pass -c "$entry"
 }

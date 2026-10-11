@@ -77,6 +77,8 @@ on-window-detected = [
     # ('semicolon' = the AZERTY M key, AeroSpace names keys by QWERTY position)
     cmd-alt-ctrl-shift-m= 'mode window'
 
+    cmd-alt-ctrl-shift-p = 'exec-and-forget $HOME/.local/bin/pass-popup'
+
 [mode.window.binding]
     # Number: send the window to that workspace, follow it, exit the mode
     1 = ['move-node-to-workspace --focus-follows-window 1', 'mode main']
