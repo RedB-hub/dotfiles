@@ -6,5 +6,5 @@ prepend_keymap = [
   { on = ["g", "w"], run = "cd ~/Akahige/Watch List", desc = "Watch List" },
   { on = ["g", "o"], run = "cd ~/Akahige/RedDoc/Obsidian/AkaKinko", desc = "Obisidian Vault" },
   { on = "y", run = [ "yank", "plugin sysclip -- --action=copy" ], desc = "Yank (also to system clipboard)" },
-  { on = ["g", "n"], run = "cd /Volumes", desc = "NAS" },
+  { on = ["g", "v"], run = "cd /Volumes", desc = "Volumes" },
 ]
