@@ -13,7 +13,7 @@ after-startup-command = [
 on-window-detected = [
     # Floating utilities (stay on the workspace they open on)
     {
-        if = 'test %{app-bundle-id} = com.apple.finder || test %{app-bundle-id} = com.apple.systempreferences || test %{app-bundle-id} = com.nordvpn.macos || test %{app-bundle-id} = com.synology.CloudStationUI',
+        if = 'test %{app-bundle-id} = com.apple.finder || test %{app-bundle-id} = com.apple.systempreferences || test %{app-bundle-id} = com.nordvpn.macos || test %{app-bundle-id} = com.synology.CloudStationUI || test %{app-bundle-id} = org.libreoffice.script',
         run = 'layout floating',
     },
     # 1: Terminal
